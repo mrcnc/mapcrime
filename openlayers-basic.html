@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<style>
+  #map {
+    height: 500px;
+  }
+</style>
+
+<head>
+  <link rel="stylesheet" href="http://openlayers.org/en/v3.13.1/css/ol.css" type="text/css">
+  <script src="http://openlayers.org/en/v3.13.1/build/ol.js"></script>
+</head>
+
+<body>
+  <div id="map"></div>
+  <script>
+    var map = new ol.Map({
+      view: new ol.View({
+        center: ol.proj.fromLonLat([-90.07, 29.95]),
+        zoom: 12
+      }),
+      layers: [
+        new ol.layer.Tile({
+          source: new ol.source.OSM()
+        })
+      ],
+      target: 'map'
+    });
+
+    var geojsonFeature = {
+      "type": "Feature",
+      "properties": {
+        "NOPD_Item": "A0000113",
+        "Type_": "94",
+        "TypeText": "DISCHARGING FIREARM",
+        "TimeCreate": "12/31/2012 23:59:34",
+        "TimeDispatch": "1/1/2013 00:03:10",
+        "TimeClosed": "1/1/2013 00:24:10",
+        "Disposition": "UNF",
+        "DispositionText": "UNFOUNDED",
+        "BLOCK_ADDRESS": "052XX Burgundy St",
+        "Zip": "70117"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          3696313,
+          533332
+        ]
+      }
+    };
+
+    var vectorSource = new ol.source.Vector({
+      features: (new ol.format.GeoJSON()).readFeatures(geojsonFeature)
+    });
+    var vectorLayer = new ol.layer.Vector({
+      source: vectorSource
+    });
+    map.addLayer(vectorLayer);
+  </script>
+</body>
+
+</html>
