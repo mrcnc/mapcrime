@@ -9,11 +9,15 @@
 <head>
   <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
   <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+  <script src="http://kartena.github.io/Proj4Leaflet/lib/proj4-compressed.js"></script>
+  <script src="http://kartena.github.io/Proj4Leaflet/src/proj4leaflet.js"></script>
 </head>
 
 <body>
   <div id="map"></div>
   <script>
+    proj4.defs('EPSG:102682', '+proj=lcc +lat_1=29.3 +lat_2=30.7 +lat_0=28.5 +lon_0=-91.33333333333333 +x_0=1000000 +y_0=0 +ellps=GRS80 +datum=NAD83 +to_meter=0.3048006096012192 +no_defs');
+
     var map = L.map('map').setView([29.95, -90.07], 12);
     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -39,10 +43,16 @@
           3696313,
           533332
         ]
+      },
+      "crs": {
+        "type": "name",
+        "properties": {
+          "name": "EPSG:102682"
+        }
       }
     };
 
-    L.geoJson(geojsonFeature).addTo(map);
+    L.Proj.geoJson(geojsonFeature).addTo(map);
   </script>
 </body>
 
