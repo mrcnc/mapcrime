@@ -30,34 +30,11 @@
       target: 'map'
     });
 
-    var geojsonFeature = {
-      "type": "Feature",
-      "properties": {
-        "NOPD_Item": "A0000113",
-        "Type_": "94",
-        "TypeText": "DISCHARGING FIREARM",
-        "TimeCreate": "12/31/2012 23:59:34",
-        "TimeDispatch": "1/1/2013 00:03:10",
-        "TimeClosed": "1/1/2013 00:24:10",
-        "Disposition": "UNF",
-        "DispositionText": "UNFOUNDED",
-        "BLOCK_ADDRESS": "052XX Burgundy St",
-        "Zip": "70117"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          3696313,
-          533332
-        ]
-      }
-    };
-
     var vectorSource = new ol.source.Vector({
-      features: (new ol.format.GeoJSON()).readFeatures(geojsonFeature, {
-        dataProjection: 'ESRI:102682',
-        featureProjection: 'EPSG:3857'
-      })
+        url: 'http://marcusthebrown.github.io/mapcrime/first1000.json',
+        format: new ol.format.GeoJSON({
+          defaultDataProjection: 'ESRI:102682'
+        })
     });
     var vectorLayer = new ol.layer.Vector({
       source: vectorSource
